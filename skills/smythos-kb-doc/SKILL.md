@@ -11,16 +11,13 @@ You are writing a documentation page for the SmythOS internal knowledge base, wh
 
 ## Step 1: Gather Information
 
-Before writing anything, ask the user the following questions (skip any already answered in the conversation):
+Before writing anything, review what the user has already provided. If you have enough context to proceed, go directly to Step 2. Otherwise, ask only the specific questions you need to fill in the gaps — do not ask questions already answered in the conversation.
+
+At minimum, you need to know:
 
 1. **What is this doc page about?** (feature, architecture, integration, debugging guide, etc.)
-2. **Which SmythOS project(s) does it relate to?** (sre, smythos-studio, sre-builder-debugger, sre-embodiment-server, sre-agent-server)
-3. **Who is the audience?** (new developers, senior engineers, DevOps, all team members)
-4. **What is the Page Title?** (plain text, no formatting)
-5. **Any specific sections or topics to cover?**
-6. **Any known issues, gotchas, or callouts to include?**
 
-Wait for user responses before proceeding.
+If anything else is unclear after reviewing the conversation and the project context, ask dynamically as needed.
 
 ## Step 2: Research
 
@@ -63,6 +60,7 @@ Use the BookStack HTML template at `${CLAUDE_SKILL_DIR}/references/bookstack-tem
 ## Step 4: Output
 
 1. Create the output directory:
+
    ```
    mkdir -p /tmp/smythos-kb-docs
    ```
@@ -70,20 +68,23 @@ Use the BookStack HTML template at `${CLAUDE_SKILL_DIR}/references/bookstack-tem
 2. Write the file to `/tmp/smythos-kb-docs/<page-title-slug>.html` where the slug is the page title lowercased with spaces replaced by hyphens
 
 3. The file should have this structure:
+
    ```
    <!-- Page Title: {Plain text title here} -->
-   
+
    {BookStack HTML content here}
    ```
 
 ## Step 5: Notify Completion
 
 Run the notification script:
+
 ```bash
 bash "${CLAUDE_SKILL_DIR}/scripts/notify.sh"
 ```
 
 Then tell the user:
+
 - The file location
 - A brief summary of what was documented
 - Ask if they want to review, make changes, or if you should remove the file when they're done
@@ -91,12 +92,14 @@ Then tell the user:
 ## Step 6: Iteration
 
 If the user says something is wrong:
+
 1. Acknowledge the correction
 2. Fix the specific issue in the file
 3. Explain what was changed
 4. Re-run the notification script
 
 If the user asks to remove the file:
+
 ```bash
 rm -rf /tmp/smythos-kb-docs/<the-file>
 ```
