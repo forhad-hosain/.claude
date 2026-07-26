@@ -8,3 +8,8 @@
 !skills/
 !skills/smythos-kb-doc/
 !skills/smythos-kb-doc/**
+!skills/linkedin-post/
+!skills/linkedin-post/**
+
+# ...but never the personal posting history
+skills/linkedin-post/history.log
